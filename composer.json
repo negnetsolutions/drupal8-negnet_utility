@@ -1,5 +1,7 @@
 {
   "name": "negnet/neg_utilities",
+  "description": "Utility module for Negnet Solutions Drupal Websites",
   "type": "drupal-module",
+  "license": "GPL-3.0+",
   "require": {}
 }
