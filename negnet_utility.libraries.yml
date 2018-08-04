@@ -1,0 +1,11 @@
+grid:
+  css:
+    theme:
+      css/grid.css: {}
+negnet-responsive-images:
+  version: VERSION
+  js:
+    js/lazysizes.min.js: {}
+  css:
+    theme:
+      css/responsive_images.css: {}

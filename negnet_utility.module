@@ -1,0 +1,20 @@
+<?php
+
+function negnet_utility_preprocess_field(&$variables, $hook){
+  //hide al labels
+  $variables['label_display'] = 'hidden';
+  $variables['label_hidden'] = true;
+}
+
+function negnet_utility_preprocess_image(&$variables){
+  if(isset($variables['attributes']['srcset'])){
+    //this is a responsive image
+    //apply lazyload
+    $variables['attributes']['data-srcset'] = $variables['attributes']['srcset'];
+    $variables['attributes']['class'][] = 'lazyload';
+    $variables['attributes']['class'][] = 'responsive-image';
+    unset($variables['attributes']['srcset']);
+    $variables['#attached']['library'][] =  'negnet_utility/negnet-responsive-images';
+  }
+}
+

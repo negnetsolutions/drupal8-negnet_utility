@@ -1,0 +1,58 @@
+.grid {
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  clear: both;
+
+  &.vcenter {
+    align-items: center;
+  }
+  &.one {
+    & > .col {
+      width: 100%;
+    }
+  }
+  &.two {
+    & > .col {
+      width: 50%;
+    }
+    &.padded {
+      & > .col {
+        width: 48.75%;
+        &:nth-child(2n+1){
+          padding-right: 2.5%;
+        }
+      }
+    }
+  }
+  &.three {
+    & > .col {
+      width: 33.3334%;
+    }
+    &.padded {
+      & > .col {
+        width: 30.666667%;
+        margin-right: 4%;
+        &:nth-child(3n+3){
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  &.four {
+    & > .col {
+      width: 25%;
+    }
+    &.padded {
+      & > .col {
+        width: 22%;
+        margin-right: 4%;
+        &:nth-child(3n+3){
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

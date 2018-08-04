@@ -1,0 +1,6 @@
+name: Negnet Solutions Utility Functions
+type: module
+description: "Required by Negnet Solutions Modules"
+core: 8.x
+dependencies:
+
