@@ -2,6 +2,9 @@ grid:
   css:
     theme:
       css/grid.css: {}
+tinyslide:
+  js:
+    vendor/negnet/tinyslide/js/tinyslide.js: {}
 negnet-responsive-images:
   version: VERSION
   js:

@@ -3,5 +3,7 @@
   "description": "Utility module for Negnet Solutions Drupal Websites",
   "type": "drupal-module",
   "license": "GPL-3.0+",
-  "require": {}
+  "require": {
+    "negnet/tinyslide": "dev-master"
+  }
 }
