@@ -17,10 +17,12 @@ use Drupal\Core\Form\FormStateInterface;
 class FilterResponsiveImages extends FilterBase {
   public function process($text, $langcode) {
 
-    if( preg_match_all('/<img[\\w\\W]+?src="\/sites\/default\/files\/([\\w\\s-?=\\.\/]+)"[\\w\\W]+?\/>/u', $text, $matches_code) ){
+    if( preg_match_all('/<img[\\w\\W]+?class="([a-zA-Z-_0-9]+)"[\\w\\W]+?src="\/sites\/default\/files\/([\\w\\s-?=\\.\/]+)"[\\w\\W]+?\/>/u', $text, $matches_code) ){
       foreach($matches_code[0] as $ci => $code){
         //get image filename
-        $img = $matches_code[1][$ci];
+        $img = $matches_code[2][$ci];
+        $class = $matches_code[1][$ci];
+        $classes = explode(' ',$class);
 
         //remove any parameters
         $imgf = strstr($img, '?', true);
@@ -35,7 +37,10 @@ class FilterResponsiveImages extends FilterBase {
           '#uri' => $uri,
           '#theme' => 'responsive_image',
           '#width' => null,
-          '#height' => null
+          '#height' => null,
+          '#attributes' => [
+            'class' => $classes,
+          ],
         );
 
         $i = \Drupal::service('image.factory')->get($uri);
