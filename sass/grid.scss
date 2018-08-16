@@ -6,9 +6,26 @@
   flex-wrap: wrap;
   clear: both;
 
-  &.vcenter {
+  &.center {
+    justify-content: center;
+  }
+  &.left {
+    justify-content: flex-start;
+  }
+  &.right {
+    justify-content: flex-end;
+  }
+
+  &.middle {
     align-items: center;
   }
+  &.top {
+    align-items: flex-start;
+  }
+  &.bottom {
+    align-items: flex-end;
+  }
+
   &.one {
     & > .col {
       width: 100%;

@@ -1,0 +1,7 @@
+services:
+  negnet_utility.twig.SVGTwigExtension:
+    arguments: ['@renderer']
+    class: Drupal\negnet_utility\TwigExtension\SvgFilter
+    tags:
+      - { name: twig.extension }
+
