@@ -5,6 +5,7 @@ namespace Drupal\negnet_utility\Plugin\Filter;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * @Filter(
@@ -24,6 +25,17 @@ class FilterNegnet extends FilterBase
             foreach ($matches_code[0] as $ci => $code)
             {
                 $text = str_replace($code, date('Y', time()), $text);
+            }
+        }
+
+        //find internal node links and convert them to their named routes
+        if (preg_match_all('/href=[\'"]\\/?node\\/([0-9]+)[\'"]/u', $text, $matches_code)) {
+            foreach ($matches_code[1] as $ci => $nid) {
+                $routeName = 'entity.node.canonical';
+                $routeParameters = ['node' => $nid];
+                $url = new Url($routeName, $routeParameters);
+                $href = 'href="'.$url->toString().'"';
+                $text = str_replace($matches_code[0][$ci], $href, $text);
             }
         }
 
