@@ -39,6 +39,27 @@ class FilterNegnet extends FilterBase
             }
         }
 
+        $dom = new \DOMDocument;
+        $dom->loadHTML($text);
+        $links = $dom->getElementsByTagName('a');
+        foreach ($links as $link) {
+            //look for children images
+            $images = $link->getElementsByTagName('img');
+
+            //get classes
+            $classes = explode(' ', $link->getAttribute('class'));
+
+            if ($images->count() == 0) { //text-only link
+                $classes[] = 'text-only';
+            } else {
+                $classes[] = 'img-link';
+            }
+
+            $link->setAttribute('class', trim(implode(' ', $classes)));
+        }
+
+        $text = $dom->saveHTML();
+
         return new FilterProcessResult($text);
     }
 }
