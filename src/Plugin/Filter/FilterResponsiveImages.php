@@ -27,6 +27,9 @@ class FilterResponsiveImages extends FilterBase
             if (!strstr($classes, 'responsive-image')) {
                 //need to process
                 $src = $image->getAttribute('src');
+                $alt = $image->getAttribute('alt');
+                $title = $image->getAttribute('title');
+
                 $imgf = strstr($src, '?', true);
                 if($imgf !== false) {
                     $src = $imgf;
@@ -46,6 +49,13 @@ class FilterResponsiveImages extends FilterBase
                     'class' => $classes,
                   ],
                 );
+
+                if (strlen($title) > 0) {
+                  $new_image['#attributes']['title'] = $title;
+                }
+                if (strlen($alt) > 0) {
+                  $new_image['#attributes']['alt'] = $alt;
+                }
 
                 $i = \Drupal::service('image.factory')->get($uri);
                 if ($i->isValid()) {
