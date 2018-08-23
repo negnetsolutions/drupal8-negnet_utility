@@ -5,7 +5,6 @@ namespace Drupal\negnet_utility\Plugin\Field\FieldWidget;
 use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\file\Plugin\Field\FieldWidget\FileWidget;
 
 /**
  * File widget with support for editing the referenced file inline.
@@ -19,6 +18,10 @@ use Drupal\file\Plugin\Field\FieldWidget\FileWidget;
  * )
  */
 class ImageEditableWidget extends ImageWidget {
+
+  /**
+   * Implements Image Process.
+   */
   public static function process($element, FormStateInterface $form_state, $form) {
 
     $element = parent::process($element, $form_state, $form);
@@ -42,4 +45,5 @@ class ImageEditableWidget extends ImageWidget {
 
     return $element;
   }
+
 }

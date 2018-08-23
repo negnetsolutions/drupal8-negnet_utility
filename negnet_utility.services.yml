@@ -4,4 +4,3 @@ services:
     class: Drupal\negnet_utility\TwigExtension\SvgFilter
     tags:
       - { name: twig.extension }
-
