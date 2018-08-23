@@ -24,7 +24,7 @@ class FilterResponsiveImages extends FilterBase
         $images = $dom->getElementsByTagName('img');
         foreach ($images as $image) {
             $classes = explode(' ', $image->getAttribute('class'));
-            if (!strstr($classes, 'responsive-image')) {
+            if (!in_array('responsive-image', $classes)) {
                 //need to process
                 $src = $image->getAttribute('src');
                 $alt = $image->getAttribute('alt');
