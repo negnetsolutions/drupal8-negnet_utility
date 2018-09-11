@@ -29,7 +29,7 @@ class FilterResponsiveImages extends FilterBase {
   public function process($text, $langcode) {
 
     $dom = new \DOMDocument();
-    $dom->loadHTML($text);
+    $dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
     $images = $dom->getElementsByTagName('img');
     foreach ($images as $image) {
       $classes = explode(' ', $image->getAttribute('class'));
@@ -87,7 +87,7 @@ class FilterResponsiveImages extends FilterBase {
    */
   protected function setInnerHtml(&$dom, $el, $newInnerHTML) {
     $tmpDoc = new \DOMDocument();
-    $tmpDoc->loadHTML($newInnerHTML);
+    $tmpDoc->loadHTML->loadHTML(mb_convert_encoding($newInnerHTML, 'HTML-ENTITIES', 'UTF-8'));
     foreach ($tmpDoc->getElementsByTagName('img') as $node) {
       $newElement = $dom->importNode($node, TRUE);
       $el->parentNode->insertBefore($newElement, $el);

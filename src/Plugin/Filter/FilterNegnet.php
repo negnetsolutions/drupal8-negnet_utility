@@ -27,7 +27,6 @@ class FilterNegnet extends FilterBase {
    * Implements process.
    */
   public function process($text, $langcode) {
-
     // Match {{ current_year }}.
     if (preg_match_all('/{{[\\s]*current_year[\\s]*}}/u', $text, $matches_code)) {
       foreach ($matches_code[0] as $ci => $code) {
@@ -47,7 +46,7 @@ class FilterNegnet extends FilterBase {
     }
 
     $dom = new \DOMDocument();
-    $dom->loadHTML($text);
+    $dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
     $links = $dom->getElementsByTagName('a');
     foreach ($links as $link) {
       // Look for children images.
