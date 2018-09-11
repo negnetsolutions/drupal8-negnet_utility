@@ -87,7 +87,7 @@ class FilterResponsiveImages extends FilterBase {
    */
   protected function setInnerHtml(&$dom, $el, $newInnerHTML) {
     $tmpDoc = new \DOMDocument();
-    $tmpDoc->loadHTML->loadHTML(mb_convert_encoding($newInnerHTML, 'HTML-ENTITIES', 'UTF-8'));
+    $tmpDoc->loadHTML(mb_convert_encoding($newInnerHTML, 'HTML-ENTITIES', 'UTF-8'));
     foreach ($tmpDoc->getElementsByTagName('img') as $node) {
       $newElement = $dom->importNode($node, TRUE);
       $el->parentNode->insertBefore($newElement, $el);
