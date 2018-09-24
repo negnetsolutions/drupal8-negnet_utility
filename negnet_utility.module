@@ -5,6 +5,8 @@
  * Negnet Utility Module.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_preprocess_field().
  */
@@ -27,4 +29,20 @@ function negnet_utility_preprocess_image(&$variables) {
     unset($variables['attributes']['srcset']);
     $variables['#attached']['library'][] = 'negnet_utility/negnet-responsive-images';
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function negnet_utility_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Alter login form and add own custom submit handler.
+  $form['#submit'][] = '_negnet_utility_user_login_form_submit';
+}
+
+/**
+ * Custom submit handler for login form.
+ */
+function _negnet_utility_user_login_form_submit($form, FormStateInterface $form_state) {
+  // Set redirect to login form.
+  $form_state->setRedirect('<front>');
 }
