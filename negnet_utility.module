@@ -32,6 +32,17 @@ function negnet_utility_preprocess_image(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_responsive_image().
+ */
+function negnet_utility_preprocess_responsive_image(&$variables) {
+  // Add base height and width as data elements.
+  if (isset($variables['height']) && isset($variables['width'])) {
+    $variables['img_element']['#attributes']['data-width'] = $variables['width'];
+    $variables['img_element']['#attributes']['data-height'] = $variables['height'];
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function negnet_utility_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
