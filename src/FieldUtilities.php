@@ -62,7 +62,7 @@ class FieldUtilities {
   public static function fieldChildren(&$elements) {
     $children = [];
     foreach ($elements as $e) {
-      $children[] = $e->value;
+      $children[] = $e->getValue();
     }
 
     return $children;
