@@ -4,6 +4,10 @@
   "type": "drupal-module",
   "license": "GPL-3.0+",
   "require": {
-    "negnet/tinyslide": "dev-master"
+    "negnet/tinyslide": "dev-master",
+    "negnet/postage": "dev-master"
+  },
+  "require-dev": {
+    "drupal/devel": "^2.0"
   }
 }
