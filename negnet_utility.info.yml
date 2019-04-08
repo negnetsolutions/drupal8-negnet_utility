@@ -4,3 +4,4 @@ description: "Required by Negnet Solutions Modules"
 core: 8.x
 dependencies:
   - postage
+  - svg_image
