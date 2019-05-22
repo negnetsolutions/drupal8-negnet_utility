@@ -8,22 +8,40 @@
 
   &.center {
     justify-content: center;
+    & > .col {
+      justify-self: center;
+    }
   }
   &.left {
     justify-content: flex-start;
+    & > .col {
+      justify-self: start;
+    }
   }
   &.right {
     justify-content: flex-end;
+    & > .col {
+      justify-self: end;
+    }
   }
 
   &.middle {
     align-items: center;
+    & > .col {
+      align-self: center;
+    }
   }
   &.top {
     align-items: flex-start;
+    & > .col {
+      align-self: start;
+    }
   }
   &.bottom {
     align-items: flex-end;
+    & > .col {
+      align-self: end;
+    }
   }
 
   &.one {
