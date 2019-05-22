@@ -52,28 +52,6 @@ const OnScreen = function() {
         const target = entries[i].target;
         let multiplier = _.getRandomMultiplier(i);
 
-        // Look for infoBox.
-        let infoBox = target.closest(".infogrid");
-        if (infoBox !== null) {
-          multiplier = _.getMultiplier(i);
-        }
-
-        // Look for search.
-        if (infoBox === null) {
-          infoBox = target.closest(".search.view");
-          if (infoBox !== null) {
-            multiplier = 0;
-          }
-        }
-
-        // Look for closed IS.
-        if (infoBox === null) {
-          infoBox = target.closest(".investment_closed.view");
-          if (infoBox !== null) {
-            multiplier = 0;
-          }
-        }
-
         setTimeout(_.unObserve.bind(_, target), multiplier);
       }
     }

@@ -27,4 +27,3 @@ onscreen:
   dependencies:
     - negnet_utility/intersection-observer
     - negnet_utility/throttle
-    - negnet_utility/closest
