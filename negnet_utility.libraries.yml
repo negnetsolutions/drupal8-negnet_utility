@@ -12,3 +12,19 @@ negnet-responsive-images:
   css:
     theme:
       css/responsive_images.css: {}
+closest:
+  js:
+    js/closest.js: {}
+throttle:
+  js:
+    js/throttle.js: {}
+intersection-observer:
+  js:
+    js/intersection-observer.js: {}
+onscreen:
+  js:
+    js/onscreen/onscreen.js: {}
+  dependencies:
+    - negnet_utility/intersection-observer
+    - negnet_utility/throttle
+    - negnet_utility/closest
