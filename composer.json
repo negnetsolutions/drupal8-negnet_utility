@@ -6,7 +6,8 @@
   "require": {
     "negnet/tinyslide": "dev-master",
     "negnet/svg_image": "dev-master",
-    "negnet/postage": "dev-master"
+    "negnet/postage": "dev-master",
+    "vimeo/vimeo-api": "^3.0"
   },
   "require-dev": {
     "drupal/devel": "^2.0"
