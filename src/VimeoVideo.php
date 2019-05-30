@@ -26,7 +26,8 @@ class VimeoVideo {
     $this->config = \Drupal::config(self::CONFIG_KEY);
     $this->vimeo = new Vimeo(self::CLIENTID, self::SECRETID);
 
-    $parts = explode('/', $url);
+    $components = parse_url($url);
+    $parts = explode('/', $components['path']);
     $last = end($parts);
     $this->id = preg_replace('/\D/', '', $last);
 
