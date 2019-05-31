@@ -39,9 +39,26 @@ class FilterResponsiveImages extends FilterBase {
         $alt = $image->getAttribute('alt');
         $title = $image->getAttribute('title');
 
+        if (substr($src, 0, 4) === 'http') {
+          // Check to see if the path is absolute to this site.
+          $host = \Drupal::request()->getSchemeAndHttpHost();
+          if (substr($src, 0, strlen($host)) === $host) {
+            // This is an absolute path to a local file.
+            $src = str_replace($host, '', $src);
+          }
+          else {
+            continue;
+          }
+        }
+
         $imgf = strstr($src, '?', TRUE);
         if ($imgf !== FALSE) {
           $src = $imgf;
+        }
+
+        // Make sure we are dealing with a managed image.
+        if (substr($src, 0, 20) !== '/sites/default/files') {
+          continue;
         }
 
         $src = str_replace('/sites/default/files', '', $src);
