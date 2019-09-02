@@ -3,17 +3,11 @@
   "description": "Utility module for Negnet Solutions Drupal Websites",
   "type": "drupal-module",
   "license": "GPL-3.0+",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/urakozz/vimeo.php"
-    }
-  ],
   "require": {
     "negnet/tinyslide": "dev-master",
     "negnet/svg_image": "dev-master",
     "negnet/postage": "dev-master",
-    "vimeo/vimeo-api": "^3.1.0"
+    "vimeo/vimeo-api": "^3.0"
   },
   "require-dev": {
     "drupal/devel": "^2.0"
