@@ -4,7 +4,6 @@ namespace Drupal\negnet_utility\Plugin\Filter;
 
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
-use Drupal\Core\Url;
 
 /**
  * @file
