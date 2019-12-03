@@ -4,7 +4,6 @@ namespace Drupal\negnet_utility\Plugin\Filter;
 
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
-use Drupal\Core\Url;
 
 /**
  * @file
@@ -27,7 +26,7 @@ class FilterStyles extends FilterBase {
    * Implements process.
    */
   public function process($text, $langcode) {
-    $text = preg_replace('/style=[\'"].+[\'"]/u', '', $text);
+    $text = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $text);
     return new FilterProcessResult($text);
   }
 
