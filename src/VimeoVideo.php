@@ -32,7 +32,7 @@ class VimeoVideo {
     $this->id = preg_replace('/\D/', '', $last);
 
     if (strlen($this->id) === 0) {
-      throw new \Exception('Could not find valid vimeo id!');
+      throw new \Exception("Could not find or access vimeo video at $url!");
     }
 
     $this->data = $this->fetchDetails('/videos/' . $this->id, [], 'GET');
