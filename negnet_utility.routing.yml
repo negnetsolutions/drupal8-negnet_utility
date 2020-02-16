@@ -1,7 +1,7 @@
 negnet_utility.restricted:
   path: '/restricted'
   defaults:
-    _form: 'Drupal\negnet_utility\Form\LoginForm'
+    _controller: 'Drupal\negnet_utility\Controller\RestrictedController::renderAccessPage'
     _title: 'Restricted Access'
   requirements:
     _permission: 'access content'

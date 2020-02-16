@@ -35,9 +35,6 @@ class LoginForm extends FormBase {
       throw new NotFoundHttpException();
     }
 
-    $form['text'] = [
-      '#markup' => '<p>Please enter the password to proceed.</p>',
-    ];
     $form['password'] = [
       '#type' => 'password',
       '#required' => TRUE,
