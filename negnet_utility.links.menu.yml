@@ -1,0 +1,5 @@
+negnet_utility.restricted_settings:
+  title: 'Restricted Access Settings'
+  parent: system.admin_config_services
+  description: 'Configure node types that can have access passwords.'
+  route_name: negnet_utility.restricted_settings

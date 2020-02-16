@@ -1,0 +1,14 @@
+negnet_utility.restricted:
+  path: '/restricted'
+  defaults:
+    _form: 'Drupal\negnet_utility\Form\LoginForm'
+    _title: 'Restricted Access'
+  requirements:
+    _permission: 'access content'
+negnet_utility.restricted_settings:
+  path: '/admin/config/people/restricted'
+  defaults:
+    _form: '\Drupal\negnet_utility\Form\RestrictedSettingsForm'
+    _title: 'Restricted Access Settings'
+  requirements:
+    _permission: 'administer site configuration'

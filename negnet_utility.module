@@ -6,6 +6,9 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\negnet_utility\RestrictedAccess;
 
 /**
  * Implements hook_preprocess_field().
@@ -40,6 +43,67 @@ function negnet_utility_preprocess_responsive_image(&$variables) {
     $variables['img_element']['#attributes']['data-width'] = $variables['width'];
     $variables['img_element']['#attributes']['data-height'] = $variables['height'];
   }
+}
+
+/**
+ * Implements hook_preproces_html().
+ */
+function negnet_utility_preprocess_html(&$variables) {
+
+  $node = \Drupal::request()->attributes->get('node');
+  if ($node) {
+    // Check if node is restricted.
+    if (RestrictedAccess::nodeIsRestricted($node)) {
+      $variables['#cache']['max-age'] = 0;
+
+      // Check Access.
+      if (!RestrictedAccess::userHasAccessToNode($node)) {
+        $response = new RedirectResponse(Url::fromRoute('negnet_utility.restricted', ['return' => '/node/' . $node->id()])->toString());
+        $response->send();
+        return;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function negnet_utility_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  $node = $form_state->getFormObject()->getEntity();
+  $config = \Drupal::config('negnet_utility.restricted_access');
+  $types = $config->get('bundles_enabled');
+
+  // Check to see if we need to enable restriction options for node type.
+  if (in_array($node->getType(), $types, TRUE) === TRUE) {
+    $form['password_protection'] = [
+      '#type' => 'details',
+      '#title' => t('Password Protection'),
+      '#group' => 'advanced',
+      '#tree' => TRUE,
+    ];
+
+    $form['restricted_enabled'] = [
+      '#type' => 'checkbox',
+      '#title' => 'Enable Password Protection?',
+      '#default_value' => ($config->get('access.' . $node->id()) !== NULL) ? $config->get('access.' . $node->id()) : FALSE,
+      '#group' => 'password_protection',
+      '#weight' => 0,
+    ];
+
+    $form['restricted_password'] = [
+      '#type' => 'textfield',
+      '#title' => 'Password',
+      '#description' => 'Password for which to protect this page.',
+      '#default_value' => ($config->get('password.' . $node->id()) !== NULL) ? $config->get('password.' . $node->id()) : FALSE,
+      '#group' => 'password_protection',
+      '#weight' => 1,
+    ];
+
+    $form['#validate'][] = 'Drupal\negnet_utility\RestrictedAccess::nodeFormValidate';
+  }
+
 }
 
 /**
