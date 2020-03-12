@@ -81,6 +81,10 @@ function negnet_utility_form_node_form_alter(&$form, FormStateInterface $form_st
   $config = \Drupal::config('negnet_utility.restricted_access');
   $types = $config->get('bundles_enabled');
 
+  if (!is_array($types)) {
+    $types = [];
+  }
+
   // Check to see if we need to enable restriction options for node type.
   if (in_array($node->getType(), $types, TRUE) === TRUE) {
     $form['password_protection'] = [
