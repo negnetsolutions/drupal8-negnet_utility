@@ -49,7 +49,7 @@ class SvgFilter extends \Twig_Extension {
     $file = $theme_path . $svg;
 
     if (!is_file($file)) {
-      throw new Exception("$file doesn't exist!");
+      throw new \Exception("$file doesn't exist!");
     }
 
     return file_get_contents($file);
