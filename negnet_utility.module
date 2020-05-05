@@ -10,6 +10,7 @@ use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\negnet_utility\RestrictedAccess;
+use Drupal\negnet_utility\NegCache;
 
 /**
  * Implements hook_preprocess_field().
@@ -165,4 +166,32 @@ function negnet_utility_theme($existing, $type, $theme, $path) {
     ],
 
   ];
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function negnet_utility_node_presave(Node $node) {
+  NegCache::invalidateNode($node);
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function negnet_utility_node_delete(Node $node) {
+  NegCache::invalidateNode($node);
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function negnet_utility_taxonomy_term_presave(Term $term) {
+  NegCache::invalidateTerm($term);
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function negnet_utility_taxonomy_termnode_delete(Term $term) {
+  NegCache::invalidateTerm($term);
 }
