@@ -7,7 +7,7 @@ namespace Drupal\negnet_utility;
  */
 class YoutubeVideo {
 
-  const APIKEY = 'AIzaSyC_HfswGm350J3vb3_o8h92aNVw1fN9FPM';
+  const CLIENTKEY = 'AIzaSyC_HfswGm350J3vb3_o8h92aNVw1fN9FPM';
   const IMAGE_DIRECTORY = 'youtube_images';
   const CACHETIMEOUT = 300;
   protected $data;
@@ -35,7 +35,7 @@ class YoutubeVideo {
   protected function getClient() {
     $client = new \Google_Client();
     $client->setApplicationName('Drupal8 Video Paragraph');
-    $client->setDeveloperKey(self::APIKEY);
+    $client->setDeveloperKey(self::CLIENTKEY);
 
     $service = new \Google_Service_YouTube($client);
     return $service;
