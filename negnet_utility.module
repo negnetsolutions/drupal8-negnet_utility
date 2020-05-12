@@ -185,13 +185,13 @@ function negnet_utility_node_delete(Node $node) {
 /**
  * Implements hook_node_presave().
  */
-function negnet_utility_taxonomy_term_presave(Term $term) {
+function negnet_utility_taxonomy_term_presave($term) {
   NegCache::invalidateTerm($term);
 }
 
 /**
  * Implements hook_node_presave().
  */
-function negnet_utility_taxonomy_termnode_delete(Term $term) {
+function negnet_utility_taxonomy_termnode_delete($term) {
   NegCache::invalidateTerm($term);
 }
