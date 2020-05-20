@@ -21,6 +21,14 @@ throttle:
 intersection-observer:
   js:
     js/intersection-observer.js: {}
+popup:
+  js:
+    js/popup.js: {}
+  css:
+    theme:
+      css/popup.css: {}
+  dependencies:
+    - negnet_utility/closest
 onscreen:
   js:
     js/onscreen/onscreen.js: {}
