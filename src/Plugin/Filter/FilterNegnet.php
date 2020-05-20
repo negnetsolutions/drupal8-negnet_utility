@@ -46,7 +46,9 @@ class FilterNegnet extends FilterBase {
     }
 
     $dom = new \DOMDocument();
+    libxml_use_internal_errors(TRUE);
     $dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
+    libxml_clear_errors();
     $links = $dom->getElementsByTagName('a');
     foreach ($links as $link) {
       // Look for children images.

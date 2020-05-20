@@ -29,7 +29,9 @@ class FilterResponsiveImages extends FilterBase {
   public function process($text, $langcode) {
 
     $dom = new \DOMDocument();
+    libxml_use_internal_errors(TRUE);
     $dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
+    libxml_clear_errors();
     $images = $dom->getElementsByTagName('img');
     foreach ($images as $image) {
       $classes = explode(' ', $image->getAttribute('class'));
