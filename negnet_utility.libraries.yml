@@ -21,6 +21,11 @@ throttle:
 intersection-observer:
   js:
     js/intersection-observer.js: {}
+autopager:
+  js:
+    js/autopager/autopager.js: {}
+  dependencies:
+    - negnet_utility/intersection-observer
 popup:
   js:
     js/popup.js: {}
