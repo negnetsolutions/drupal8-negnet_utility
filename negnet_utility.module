@@ -84,7 +84,7 @@ function negnet_utility_preprocess_html(&$variables) {
 
       // Set a status message for editors.
       if ($node->access('update')) {
-        drupal_set_message('This page has password protection enabled.');
+        \Drupal::messenger()->addStatus('This page has password protection enabled.');
       }
     }
   }
