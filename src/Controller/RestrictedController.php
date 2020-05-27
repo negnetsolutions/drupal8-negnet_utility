@@ -16,14 +16,14 @@ class RestrictedController extends ControllerBase {
     $form = \Drupal::formBuilder()->getForm('Drupal\negnet_utility\Form\LoginForm');
 
     $variables['#attached']['library'][] = 'neg_paragraphs/reset';
-    $variables['#attached']['library'][] = 'negnet_utility/grid';
+    $variables['#attached']['library'][] = 'negnet_utility/modern_grid';
     return [
       '#theme' => 'negnet_restricted_access',
       '#webform' => $form,
       '#attached' => [
         'library' => [
           'neg_paragraphs/reset',
-          'negnet_utility/grid',
+          'negnet_utility/modern_grid',
         ],
       ],
       '#cache' => [
