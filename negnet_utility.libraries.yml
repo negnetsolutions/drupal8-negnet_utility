@@ -6,6 +6,9 @@ modern_grid:
   css:
     theme:
       css/modern_grid.css: {}
+createElementFromHTML:
+  js:
+    js/create_element_from_html.js: {}
 tinyslide:
   js:
     vendor/negnet/tinyslide/js/tinyslide.js: {}
@@ -30,6 +33,7 @@ autopager:
     js/autopager/autopager.js: {}
   dependencies:
     - negnet_utility/intersection-observer
+    - negnet_utility/createElementFromHTML
 popup:
   js:
     js/popup.js: {}

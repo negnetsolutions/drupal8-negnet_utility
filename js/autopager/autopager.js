@@ -25,14 +25,6 @@ var autoPager = function (endpoint, el, perPage, first_page) {
     _.el.innerHTML = "";
   }
 
-  this.createElementFromHTML = function (htmlString) {
-    var div = document.createElement('div');
-    div.innerHTML = htmlString.trim();
-
-    // Change this to div.childNodes to support multiple top-level nodes
-    return div.firstChild; 
-  }
-
   this.setFinishedLoading = function () {
     // Remove loading.
     var loading = _.el.querySelector('.col.loading');
@@ -44,7 +36,7 @@ var autoPager = function (endpoint, el, perPage, first_page) {
 
   this.setLoading = function () {
     if (!_.isLoading) {
-      var el = _.createElementFromHTML("<div class='col loading' data-page'" + _.next_page + "'><span class='text'>Loading...</span><div class='progress'></div></div>");
+      var el = createElementFromHTML("<div class='col loading' data-page'" + _.next_page + "'><span class='text'>Loading...</span><div class='progress'></div></div>");
       _.el.appendChild(el);
       _.isLoading = true;
     }
@@ -99,7 +91,7 @@ var autoPager = function (endpoint, el, perPage, first_page) {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < data.items.length; i++) {
         var item = data.items[i];
-        var el = _.createElementFromHTML(item);
+        var el = createElementFromHTML(item);
         fragment.appendChild(el);
       }
 
