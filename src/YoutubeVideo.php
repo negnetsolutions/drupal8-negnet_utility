@@ -2,6 +2,8 @@
 
 namespace Drupal\negnet_utility;
 
+use Drupal\Core\File\FileSystemInterface;
+
 /**
  * Class YoutubeVideo.
  */
@@ -196,7 +198,7 @@ class YoutubeVideo {
   protected function downloadImage() {
     $external_uri = $this->getExternalImageUri();
 
-    if (file_prepare_directory($this->getImageDirectory(), FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
+    if (\Drupal::service('file_system')->prepareDirectory($this->getImageDirectory(), FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS)) {
       return $this->fetch(
         $this->getExternalImageUri(),
         $this->getImageUri()
@@ -214,7 +216,7 @@ class YoutubeVideo {
     $result = $http->request('get', $url);
     $code   = floor($result->getStatusCode() / 100) * 100;
     if (!empty($result->getBody()) && $code != 400 && $code != 500) {
-      return file_unmanaged_save_data($result->getBody(), $cachepath, FILE_EXISTS_REPLACE);
+      return \Drupal::service('file_system')->saveData($result->getBody(), $cachepath, FileSystemInterface::EXISTS_REPLACE);
     }
 
     return FALSE;
@@ -224,7 +226,7 @@ class YoutubeVideo {
    * Gets image storage path.
    */
   protected function getImageDirectory() {
-    $default_scheme = file_default_scheme();
+    $default_scheme = \Drupal::config('system.file')->get('default_scheme');
     return $default_scheme . '://' . self::IMAGE_DIRECTORY;
   }
 
