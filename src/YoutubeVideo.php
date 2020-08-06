@@ -49,7 +49,10 @@ class YoutubeVideo {
   protected function getVideoId($url) {
 
     if (strstr($url, 'youtube.com/embed') !== FALSE) {
-      return; substr($url, strrpos($url, '/') + 1);
+      return substr($url, strrpos($url, '/') + 1);
+    }
+    elseif (strstr($url, 'youtu.be') !== FALSE) {
+      return substr($url, strrpos($url, '/') + 1);
     }
     elseif (preg_match('/\\?v=([a-zA-Z-_0-9]+)/u', $url, $matches) !== FALSE) {
       return $matches[1];
