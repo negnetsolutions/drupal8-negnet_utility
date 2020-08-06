@@ -65,7 +65,7 @@ class FilterResponsiveImages extends FilterBase {
 
         $src = str_replace('/sites/default/files', '', $src);
 
-        $uri = "public:/" . $src;
+        $uri = "public:/" . urldecode($src);
 
         $new_image = [
           '#responsive_image_style_id' => isset($this->settings['responsive_image_style']) ? $this->settings['responsive_image_style'] : NULL,
@@ -85,14 +85,19 @@ class FilterResponsiveImages extends FilterBase {
           $new_image['#attributes']['alt'] = $alt;
         }
 
-        $i = \Drupal::service('image.factory')->get($uri);
-        if ($i->isValid()) {
-          $new_image['#height'] = $i->getHeight();
-          $new_image['#width'] = $i->getWidth();
-        }
+        try {
+          $i = \Drupal::service('image.factory')->get($uri);
+          if ($i->isValid()) {
+            $new_image['#height'] = $i->getHeight();
+            $new_image['#width'] = $i->getWidth();
+          }
 
-        $replacement = (string) \Drupal::service('renderer')->render($new_image);
-        $this->setInnerHtml($dom, $image, $replacement);
+          $replacement = (string) \Drupal::service('renderer')->render($new_image);
+          $this->setInnerHtml($dom, $image, $replacement);
+        }
+        catch (\Exception $e) {
+          \Drupal::logger('neg_utilities')->error($e->getMessage());
+        }
       }
     }
 
