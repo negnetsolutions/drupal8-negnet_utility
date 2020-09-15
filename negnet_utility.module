@@ -64,7 +64,7 @@ function negnet_utility_preprocess_responsive_image(&$variables) {
 function negnet_utility_preprocess_html(&$variables) {
 
   $node = \Drupal::request()->attributes->get('node');
-  if ($node) {
+  if ($node && is_object($node)) {
 
     // Check for popups.
     if ($node->hasField('field_popup') && !$node->get('field_popup')->isEmpty()) {
