@@ -15,7 +15,7 @@ class NegCache {
    * Invalidates a taxonomy term.
    */
   public static function invalidateTerm(Term $term) {
-    Cache::invalidateTags(['taxonomy_term:' . $term->getVocabularyId()]);
+    Cache::invalidateTags(['taxonomy_term:' . $term->bundle()]);
   }
 
   /**
