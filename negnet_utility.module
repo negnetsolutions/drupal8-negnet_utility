@@ -27,13 +27,25 @@ function negnet_utility_preprocess_field(&$variables, $hook) {
  */
 function negnet_utility_preprocess_image(&$variables) {
   if (isset($variables['attributes']['srcset'])) {
-    // This is a responsive image
-    // apply lazyload.
-    $variables['attributes']['data-srcset'] = $variables['attributes']['srcset'];
-    $variables['attributes']['class'][] = 'lazyload';
+    if (!isset($GLOBALS['rs_image_count'])) {
+      $GLOBALS['rs_image_count'] = 0;
+    }
+
     $variables['attributes']['class'][] = 'responsive-image';
-    unset($variables['attributes']['srcset']);
-    $variables['#attached']['library'][] = 'negnet_utility/negnet-responsive-images';
+    $variables['attributes']['data-srcset'] = $variables['attributes']['srcset'];
+
+    if ($GLOBALS['rs_image_count'] < 1) {
+      $variables['attributes']['class'][] = 'lazyloaded';
+    }
+    else {
+      // This is a responsive image
+      // apply lazyload.
+      $variables['attributes']['class'][] = 'lazyload';
+      unset($variables['attributes']['srcset']);
+      $variables['#attached']['library'][] = 'negnet_utility/negnet-responsive-images';
+    }
+
+    $GLOBALS['rs_image_count']++;
   }
 }
 
