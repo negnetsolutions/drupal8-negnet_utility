@@ -42,7 +42,9 @@ function negnet_utility_preprocess_image(&$variables) {
     unset($variables['attributes']['srcset']);
 
     // Since we are using lazyloaded images, set sizes to auto.
-    $variables['attributes']['sizes'] = 'auto';
+    if (!isset($variables['attributes']['sizes']) || $variables['attributes']['sizes'] == '100vw') {
+      $variables['attributes']['sizes'] = 'auto';
+    }
 
     // Require lazyload libraries.
     $variables['#attached']['library'][] = 'negnet_utility/negnet-responsive-images';
