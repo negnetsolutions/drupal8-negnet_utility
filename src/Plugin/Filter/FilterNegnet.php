@@ -30,6 +30,7 @@ class FilterNegnet extends FilterBase {
 
     // Set cache defaults.
     $maxAge = FALSE;
+    $cacheTags = [];
 
     // Match {{ current_year }}.
     if (preg_match_all('/{{[\\s]*current_year[\\s]*}}/u', $text, $matches_code)) {
@@ -49,6 +50,7 @@ class FilterNegnet extends FilterBase {
         $url = new Url($routeName, $routeParameters);
         $href = 'href="' . $url->toString() . '"';
         $text = str_replace($matches_code[0][$ci], $href, $text);
+        $cacheTags[] = 'node:' . $nid;
       }
     }
 
@@ -81,6 +83,10 @@ class FilterNegnet extends FilterBase {
 
     if ($maxAge !== FALSE) {
       $result->setCacheMaxAge($maxAge);
+    }
+
+    if (count($cacheTags) > 0) {
+      $result->setCacheTags($cacheTags);
     }
 
     return $result;
