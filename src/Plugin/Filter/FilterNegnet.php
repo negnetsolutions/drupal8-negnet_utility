@@ -27,11 +27,18 @@ class FilterNegnet extends FilterBase {
    * Implements process.
    */
   public function process($text, $langcode) {
+
+    // Set cache defaults.
+    $maxAge = FALSE;
+
     // Match {{ current_year }}.
     if (preg_match_all('/{{[\\s]*current_year[\\s]*}}/u', $text, $matches_code)) {
       foreach ($matches_code[0] as $ci => $code) {
         $text = str_replace($code, date('Y', time()), $text);
       }
+
+      $nextYear = strtotime((date('Y', time()) + 1) . '-01-01 00:00:00');
+      $maxAge = $nextYear - time();
     }
 
     // Find internal node links and convert them to their named routes.
@@ -70,7 +77,13 @@ class FilterNegnet extends FilterBase {
 
     $text = $dom->saveHTML();
 
-    return new FilterProcessResult($text);
+    $result = new FilterProcessResult($text);
+
+    if ($maxAge !== FALSE) {
+      $result->setCacheMaxAge($maxAge);
+    }
+
+    return $result;
   }
 
 }
