@@ -11,6 +11,6 @@
     "vimeo/vimeo-api": "^3.0"
   },
   "require-dev": {
-    "drupal/devel": "^2.0"
+    "drupal/devel": "^4.0"
   }
 }
