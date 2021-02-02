@@ -90,7 +90,9 @@ function negnet_utility_preprocess_html(&$variables) {
 
     // Check for popups.
     if ($node->hasField('field_popup') && !$node->get('field_popup')->isEmpty()) {
-      Popup::render($node->get('field_popup')->entity, $variables);
+      if (isset($node->get('field_popup')->entity)) {
+        Popup::render($node->get('field_popup')->entity, $variables);
+      }
     }
 
     // Check if node is restricted.
