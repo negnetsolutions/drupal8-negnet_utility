@@ -26,6 +26,9 @@ function negnet_utility_preprocess_field(&$variables, $hook) {
  * Implements hook_preproces_image().
  */
 function negnet_utility_preprocess_image(&$variables) {
+
+  $variables['attributes']['decoding'][] = 'async';
+
   if (isset($variables['attributes']['srcset'])) {
 
     if (!isset($GLOBALS['rs_image_count'])) {
