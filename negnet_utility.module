@@ -27,7 +27,7 @@ function negnet_utility_preprocess_field(&$variables, $hook) {
  */
 function negnet_utility_preprocess_image(&$variables) {
 
-  $variables['attributes']['decoding'][] = 'async';
+  $variables['attributes']['decoding'] = 'async';
 
   if (isset($variables['attributes']['srcset'])) {
 
