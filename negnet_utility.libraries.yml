@@ -51,7 +51,13 @@ onscreen:
 vue:
   js:
     https://cdn.jsdelivr.net/npm/vue@2: {type: external, minified: true}
+  css:
+    theme:
+      css/vue.css: {}
 vue_dev:
   js:
     https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js: {type: external, minified: true}
+  css:
+    theme:
+      css/vue.css: {}
 
