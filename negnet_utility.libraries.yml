@@ -60,4 +60,10 @@ vue_dev:
   css:
     theme:
       css/vue.css: {}
-
+flickity:
+  version: 0.01
+  css:
+    theme:
+      js/flickity/flickity.css: {}
+  js:
+    js/flickity/flickity.pkgd.min.js: {}
