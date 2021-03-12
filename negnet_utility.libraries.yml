@@ -67,3 +67,7 @@ flickity:
       js/flickity/flickity.css: {}
   js:
     js/flickity/flickity.pkgd.min.js: {}
+instant.page:
+  version: 0.01
+  js:
+    js/instant.page/instant.page.min.js: {minified: true}
