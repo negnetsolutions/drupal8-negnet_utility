@@ -92,7 +92,14 @@ var autoPager = function (endpoint, el, perPage, first_page) {
       for (var i = 0; i < data.items.length; i++) {
         var item = data.items[i];
         var el = createElementFromHTML(item);
+
         fragment.appendChild(el);
+      }
+
+      // Run any scripts included.
+      let scripts = fragment.querySelectorAll('script');
+      for (let n = 0; n < scripts.length; n++) {
+        eval(scripts[n].innerHTML)
       }
 
       window.requestAnimationFrame(function() {
@@ -100,6 +107,7 @@ var autoPager = function (endpoint, el, perPage, first_page) {
         _.el.appendChild(fragment);
         _.next_page++;
         _.working = false;
+
         _.setObserver();
       });
 
