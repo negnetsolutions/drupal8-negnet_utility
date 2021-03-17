@@ -1,0 +1,5 @@
+<div class="search-field suggest" data-endpoint="{{ endpoint }}">
+  <div class="helper search-field_inputs-suggestion"></div>
+  <input class="search-field_inputs" type="search" name="{{ name }}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label='{{ placeholder }}' placeholder="{{ placeholder }}"{% if value|render %} value="{{ value }}"{% endif %}/>
+  <div class="suggestion_overlay search-field_inputs-suggestion"></div>
+</div>

@@ -71,6 +71,10 @@ instant.page:
   version: 0.01
   js:
     js/instant.page/instant.page.min.js: {minified: true}
+search-suggest:
+  version: 0.01
+  js:
+    js/suggest/search.suggest.js: {}
 snapback_cache:
   version: 0.01
   js:
