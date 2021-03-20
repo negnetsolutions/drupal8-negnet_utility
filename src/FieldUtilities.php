@@ -76,6 +76,15 @@ class FieldUtilities {
   }
 
   /**
+   * Formats a phone number.
+   */
+  public static function formatePhoneNumber($number) {
+    $number = preg_replace('/(\\+\\d)?(\\d{3})(\\d{3})(\\d{4})/u', '$1.$2.$3.$4', $number);
+    $number = ltrim($number, '.');
+    return $number;
+  }
+
+  /**
    * Converts an integer into a named number.
    */
   public static function numberToName(int $number) {
