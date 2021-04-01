@@ -3,7 +3,6 @@
 namespace Drupal\negnet_utility;
 
 use Drupal\Core\Render\RenderContext;
-use Drupal\Core\Cache\CacheBackendInterface;
 
 /**
  * Persistent render cache generator.
