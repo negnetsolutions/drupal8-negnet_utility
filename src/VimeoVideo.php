@@ -170,6 +170,9 @@ class VimeoVideo {
       '#height' => $largest['height'],
       '#responsive_image_style_id' => 'rs_image',
       '#uri' => $this->getImageUri(),
+      '#attributes' => [
+        'alt' => $this->getName(),
+      ],
     ];
 
     return $image;
