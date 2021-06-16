@@ -36,26 +36,28 @@ function negnet_utility_preprocess_image(&$variables) {
     }
 
     $variables['attributes']['class'][] = 'responsive-image';
-    $variables['attributes']['class'][] = 'lazyload';
-
-    // Put srcset into data attribute so lazyloader will defer loading.
-    $variables['attributes']['data-srcset'] = $variables['attributes']['srcset'];
-
-    // Unset the srcset attributes.
-    unset($variables['attributes']['srcset']);
-
-    // Since we are using lazyloaded images, set sizes to auto.
-    if (!isset($variables['attributes']['sizes']) || $variables['attributes']['sizes'] == '100vw') {
-      $variables['attributes']['sizes'] = 'auto';
-    }
-
-    // Require lazyload libraries.
-    $variables['#attached']['library'][] = 'negnet_utility/negnet-responsive-images';
 
     // If this is the first image, allow it to load and show the low res version.
     if ($GLOBALS['rs_image_count'] < 1) {
       $variables['attributes']['class'][] = 'lazyloaded';
       $variables['attributes']['class'][] = 'fuzzy-lazy-load';
+    }
+    else {
+      $variables['attributes']['class'][] = 'lazyload';
+
+      // Put srcset into data attribute so lazyloader will defer loading.
+      $variables['attributes']['data-srcset'] = $variables['attributes']['srcset'];
+
+      // Unset the srcset attributes.
+      unset($variables['attributes']['srcset']);
+
+      // Since we are using lazyloaded images, set sizes to auto.
+      if (!isset($variables['attributes']['sizes']) || $variables['attributes']['sizes'] == '100vw') {
+        $variables['attributes']['sizes'] = 'auto';
+      }
+
+      // Require lazyload libraries.
+      $variables['#attached']['library'][] = 'negnet_utility/negnet-responsive-images';
     }
 
     $GLOBALS['rs_image_count']++;
