@@ -41,6 +41,10 @@ function negnet_utility_preprocess_image(&$variables) {
     if ($GLOBALS['rs_image_count'] < 1) {
       $variables['attributes']['class'][] = 'lazyloaded';
       $variables['attributes']['class'][] = 'fuzzy-lazy-load';
+
+      if ($variables['attributes']['sizes'] == 'auto') {
+        $variables['attributes']['sizes'] = '100vw';
+      }
     }
     else {
       $variables['attributes']['class'][] = 'lazyload';
