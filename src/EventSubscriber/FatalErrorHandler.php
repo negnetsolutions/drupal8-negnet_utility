@@ -53,26 +53,9 @@ class FatalErrorHandler extends HttpExceptionSubscriberBase {
   protected function sendError($exception) {
     $error = Error::decodeException($exception);
 
-    // With verbose logging, we will also include a backtrace.
-    $backtrace_exception = $exception;
-    while ($backtrace_exception
-      ->getPrevious()) {
-      $backtrace_exception = $backtrace_exception
-        ->getPrevious();
-    }
-    $backtrace = $backtrace_exception
-      ->getTrace();
-
-    // First trace is the error itself, already contained in the message.
-    // While the second trace is the error source and also contained in the
-    // message, the message doesn't contain argument values, so we output it
-    // once more in the backtrace.
-    array_shift($backtrace);
-
-    // Generate a backtrace containing only scalar argument values.
-    $error['@backtrace'] = Error::formatBacktrace($backtrace);
     $error['%host'] = \Drupal::request()->getSchemeAndHttpHost();
-    $message = new FormattableMarkup('%host: %type: @message in %function (line %line of %file). <pre class="backtrace">@backtrace</pre>', $error);
+    unset($error['backtrace']);
+    $message = new FormattableMarkup('%host: %type: @message in %function (line %line of %file). <pre class="backtrace"> @backtrace_string </pre>', $error);
 
     $postage = new Postage();
     $postage->setKey('1435301-2725-7848-6672-574100246885');
