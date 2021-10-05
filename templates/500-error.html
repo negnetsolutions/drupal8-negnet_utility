@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <style>
+      body {
+        background: #333333;
+        font-size: 24px;
+        font-family: helvetica, sans-serif;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        justify-content: center;
+      }
+
+      @keyframes colorSplit {
+        25% {
+          text-shadow: -0.02em 0 0 #ed008c, 0.025em 0 0 #0087ef;
+        }
+        75% {
+          text-shadow: -0.035em 0 0 #ed008c, 0.04em 0 0 #0087ef;
+        }
+      }
+      .wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content;
+        align-items: center;
+        gap: 1em;
+      }
+
+      * {
+        text-align: center;
+      }
+      .title {
+        text-transform: uppercase;
+        color: red;
+        font-size: 2em;
+      }
+      .error-num {
+        font-size: 10em;
+        color: white;
+        font-weight: bold;
+        animation: colorSplit 1.25s steps(2, end) infinite;
+      }
+
+      .description {
+        color: rgba(255, 255, 255, .25);
+        margin: 0;
+        padding: 0;
+      }
+
+      a {
+        color: white;
+        text-decoration: underline;
+      }
+      a:visited {
+        color: white;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="title">Error</div>
+
+      <div class="error-num">
+        500
+      </div>
+
+      <p class="description">Uh oh, there seems to be a problem.</p>
+      <p class="description">Let me help you find <a href="/">a way out</a>.</p>
+
+    </div>
+  </body>
+</html>

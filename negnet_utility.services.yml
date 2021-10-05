@@ -1,4 +1,8 @@
 services:
+  negnet_utility.error500:
+    class: Drupal\negnet_utility\EventSubscriber\FatalErrorHandler
+    tags:
+      - { name: event_subscriber }
   negnet_utility.twig.SVGTwigExtension:
     arguments: ['@renderer']
     class: Drupal\negnet_utility\TwigExtension\SvgFilter
