@@ -2,6 +2,7 @@
 
 namespace Drupal\negnet_utility\EventSubscriber;
 
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Drupal\Core\EventSubscriber\HttpExceptionSubscriberBase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -23,7 +24,7 @@ class FatalErrorHandler extends HttpExceptionSubscriberBase {
   protected static function getPriority() {
     // A very low priority so that custom handlers are almost certain to fire
     // before it, even if someone forgets to set a priority.
-    return 1;
+    return -255;
   }
 
   /**
@@ -90,6 +91,14 @@ class FatalErrorHandler extends HttpExceptionSubscriberBase {
   public function onException(GetResponseForExceptionEvent $event) {
     $exception = $event->getException();
     $error = Error::decodeException($exception);
+
+    if ($exception instanceof HttpExceptionInterface) {
+      $code = $exception->getStatusCode();
+      // Only run on true error 500 exceptions.
+      if ($code < 500 || $code >= 600) {
+        return;
+      }
+    }
 
     // Only show error (and send to postage) if we can't show the error to the screen.
     if (!$this->isErrorDisplayable($error)) {
