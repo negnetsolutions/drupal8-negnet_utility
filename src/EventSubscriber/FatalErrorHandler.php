@@ -60,7 +60,7 @@ class FatalErrorHandler extends HttpExceptionSubscriberBase {
 
     $postage = new Postage();
     $postage->setKey('1435301-2725-7848-6672-574100246885');
-    $postage->addFrom('andy@negnet.co', 'Drupal Fatal Error');
+    $postage->addFrom('drupal-errors@negnet.co', 'Drupal Fatal Error');
     $postage->addTo('andy@negnet.co', 'Andrew Johnson');
     $postage->subject($error['%host'] . ': FATAL ERROR');
     $postage->messageHtml($message);
