@@ -3,6 +3,10 @@ services:
     class: Drupal\negnet_utility\EventSubscriber\FatalErrorHandler
     tags:
       - { name: event_subscriber }
+  negnet_utility.twig.HtmlEntitiesTwigExtension:
+    class: Drupal\negnet_utility\TwigExtension\HtmlEntities
+    tags:
+      - {name: twig.extension}
   negnet_utility.twig.SVGTwigExtension:
     arguments: ['@renderer']
     class: Drupal\negnet_utility\TwigExtension\SvgFilter
