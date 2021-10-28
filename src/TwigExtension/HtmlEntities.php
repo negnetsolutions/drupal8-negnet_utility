@@ -41,7 +41,11 @@ class HtmlEntities extends Twig_Extension {
    *   svg code.
    */
   public static function renderEntities($content) {
-    return htmlentities($content);
+    if (is_string($content)) {
+      return htmlentities($content);
+    }
+
+    return $content;
   }
 
 }
