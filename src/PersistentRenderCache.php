@@ -28,11 +28,10 @@ class PersistentRenderCache {
     }
 
     if (!$rendered_view) {
-      // We don't have cache. Let's build it.
-      $build = \Drupal::entityTypeManager()->getViewBuilder($entity->getEntityTypeId())->view($entity, $view_mode);
-
       $rendered_view = NULL;
-      \Drupal::service('renderer')->executeInRenderContext(new RenderContext(), function () use (&$build, &$rendered_view) {
+      \Drupal::service('renderer')->executeInRenderContext(new RenderContext(), function () use (&$entity, &$view_mode, &$rendered_view) {
+        // We don't have cache. Let's build it.
+        $build = \Drupal::entityTypeManager()->getViewBuilder($entity->getEntityTypeId())->view($entity, $view_mode);
         $rendered_view = render($build);
       });
 
