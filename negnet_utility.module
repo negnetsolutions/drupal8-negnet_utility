@@ -56,6 +56,7 @@ function negnet_utility_preprocess_image(&$variables) {
               'rel' => 'preload',
               'href' => $variables['attributes']['src'],
               'imagesrcset' => $variables['attributes']['srcset'],
+              'as' => 'image',
             ],
           ],
           'preload_image_' . $GLOBALS['rs_image_count'],
