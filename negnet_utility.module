@@ -38,9 +38,10 @@ function negnet_utility_preprocess_image(&$variables) {
     $variables['attributes']['class'][] = 'responsive-image';
 
     // If this is the first image, allow it to load and show the low res version.
-    if ($GLOBALS['rs_image_count'] < 1 || (isset($GLOBALS['rs_image_disable_all_lazyloading']) && $GLOBALS['rs_image_disable_all_lazyloading'] === TRUE)) {
+    if ($GLOBALS['rs_image_count'] < 2 || (isset($GLOBALS['rs_image_disable_all_lazyloading']) && $GLOBALS['rs_image_disable_all_lazyloading'] === TRUE)) {
       $variables['attributes']['class'][] = 'lazyloaded';
       $variables['attributes']['class'][] = 'fuzzy-lazy-load';
+      $variables['attributes']['rel'] = 'preload';
 
       if ($variables['attributes']['sizes'] == 'auto') {
         $variables['attributes']['sizes'] = '100vw';
