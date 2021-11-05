@@ -56,6 +56,7 @@ function negnet_utility_preprocess_image(&$variables) {
               'rel' => 'preload',
               'href' => $variables['attributes']['src'],
               'imagesrcset' => $variables['attributes']['srcset'],
+              'imagessizes' => $variables['attributes']['sizes'],
               'as' => 'image',
             ],
           ],
