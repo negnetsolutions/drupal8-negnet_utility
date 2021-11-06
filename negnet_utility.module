@@ -70,6 +70,9 @@ function negnet_utility_preprocess_image(&$variables) {
       // Put srcset into data attribute so lazyloader will defer loading.
       $variables['attributes']['data-srcset'] = $variables['attributes']['srcset'];
 
+      // Let chrome lazy load src if it wants to.
+      $variables['attributes']['loading'] = 'lazy';
+
       // Unset the srcset attributes.
       unset($variables['attributes']['srcset']);
 
