@@ -16,7 +16,7 @@ negnet-responsive-images:
   version: VERSION
   js:
     js/lazysizes.min.js: {minified: true}
-    js/lazysizes.print.min.js: {minified: true, attributes: { defer: true, async: true }}
+    js/lazysizes.print.min.js: {minified: true, attributes: { defer: true }}
   css:
     theme:
       css/responsive_images.css: {}
@@ -71,7 +71,7 @@ flickity:
 instant.page:
   version: 0.01
   js:
-    js/instant.page/instant.page.min.js: {minified: true, attributes: { defer: true, async: true }}
+    js/instant.page/instant.page.min.js: {minified: true, attributes: { defer: true }}
 search-suggest:
   version: 0.01
   css:
