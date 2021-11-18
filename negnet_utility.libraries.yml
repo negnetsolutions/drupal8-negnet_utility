@@ -28,10 +28,10 @@ throttle:
     js/throttle.js: {}
 intersection-observer:
   js:
-    js/intersection-observer.js: {}
+    js/intersection-observer.js: {minified: true}
 autopager:
   js:
-    js/autopager/autopager.js: {}
+    js/autopager/autopager.min.js: {minified: true}
   dependencies:
     - negnet_utility/intersection-observer
     - negnet_utility/createElementFromHTML
