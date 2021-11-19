@@ -11,6 +11,9 @@ var autoPager = function (endpoint, el, perPage, first_page) {
   this.isLoading = false;
   this.xobj = new XMLHttpRequest();
   this.debug = false;
+  this.pageChangeCallback = null;
+  this.popObserver = null;
+  this.currentPage = 0;
 
   this.log = function(message) {
     if (_.debug) {
@@ -53,6 +56,25 @@ var autoPager = function (endpoint, el, perPage, first_page) {
     _.clearItems();
     _.setLoading();
   }
+
+  this.pageChange = function pageChange(e) {
+    _.currentPage = e.target.dataset.page;
+
+    if (typeof _.pageChangeCallback === 'function') {
+      _.pageChangeCallback(e);
+    }
+  };
+
+  this.pageChangeObserver = new IntersectionObserver(function (entries) {
+    for (let i = 0; i < entries.length; i++) {
+      let entity = entries[i];
+      if (entity.isIntersecting) {
+        if (entity.target.dataset.page != _.currentPage) {
+          _.pageChange(entity);
+        }
+      }
+    }
+  });
 
   this.observer = new IntersectionObserver(function (entries) {
     var firstEntry = entries[0];
@@ -152,14 +174,22 @@ var autoPager = function (endpoint, el, perPage, first_page) {
       el = el.querySelector('.name');
     }
 
+    el.dataset.page = _.next_page;
+
     _.lastObserved = el;
     _.observer.observe(el);
   }
 
   this.unsetObserver = function () {
     _.observer.unobserve(_.lastObserved);
+    _.pageChangeObserver.observe(_.lastObserved);
     _.xobj.abort();
     _.working = false;
+  }
+
+  if (_.el.children.length > 0) {
+    _.el.children[0].dataset.page = 0;
+    _.pageChangeObserver.observe(_.el.children[0]);
   }
 
   _.setObserver();
