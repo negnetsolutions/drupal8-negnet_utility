@@ -62,6 +62,10 @@ function negnet_utility_preprocess_image(&$variables) {
           ],
           'preload_image_' . $GLOBALS['rs_image_count'],
         ];
+        // $variables['#attached']['http_header'][] = [
+        //   'Link',
+        //   '<' . $variables['attributes']['src'] . '>; rel="preload"; imagesrcset="' . $variables['attributes']['srcset'] . '"; imagesizes="' . $variables['attributes']['sizes'] . '"; as="image"',
+        // ];
       }
     }
     else {
