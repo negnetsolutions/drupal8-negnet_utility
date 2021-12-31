@@ -101,17 +101,6 @@ function negnet_utility_preprocess_node(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_responsive_image().
- */
-function negnet_utility_preprocess_responsive_image(&$variables) {
-  // Add base height and width as data elements.
-  if (isset($variables['height']) && isset($variables['width'])) {
-    $variables['img_element']['#attributes']['data-width'] = $variables['width'];
-    $variables['img_element']['#attributes']['data-height'] = $variables['height'];
-  }
-}
-
-/**
  * Implements hook_preproces_html().
  */
 function negnet_utility_preprocess_html(&$variables) {
