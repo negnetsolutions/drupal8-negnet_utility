@@ -13,7 +13,7 @@ tinyslide:
   js:
     vendor/negnet/tinyslide/js/tinyslide.js: {}
 negnet-responsive-images:
-  version: VERSION
+  version: 5.3.2
   js:
     js/lazysizes.min.js: {minified: true}
     js/lazysizes.print.min.js: {minified: true, attributes: { defer: true }}
