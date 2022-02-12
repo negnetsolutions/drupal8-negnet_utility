@@ -2,6 +2,7 @@
 
 namespace Drupal\negnet_utility\EventSubscriber;
 
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Drupal\Core\EventSubscriber\HttpExceptionSubscriberBase;
 use Symfony\Component\HttpFoundation\Response;
@@ -96,6 +97,11 @@ class FatalErrorHandler extends HttpExceptionSubscriberBase {
       $code = $exception->getStatusCode();
       // Only run on true error 500 exceptions.
       if ($code < 500 || $code >= 600) {
+        return;
+      }
+
+      if ($exception instanceof ServiceUnavailableHttpException) {
+        // Don't run on service ServiceUnavailableHttpException exceptions.
         return;
       }
     }
