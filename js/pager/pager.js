@@ -5,40 +5,36 @@ var Pager = function (el, opts) {
   this.pager = this.el.querySelector('.negnet_utility_pager');
   this.xobj = new XMLHttpRequest();
   this.xobj.overrideMimeType("application/json");
-  this.currentPage = 0;
-  this.total = el.dataset.total;
-  this.totalPages = Math.floor(this.total / el.dataset.perpage);
   this.pagerItems = null;
 
   if (this.pager) {
     this.pagerItems = this.pager.querySelector('ul');
   }
 
-  this.fetchOptions = {
-    'perpage': el.dataset.perpage,
-    'id': el.dataset.id,
-    'type': el.dataset.type,
-    'sort': el.dataset.sort,
-  };
-
   this.opts = (typeof(opts) !== "undefined") ? opts : {};
-  this.url = el.dataset.endpoint;
   this.itemsEl = el.querySelector('.items');
 
   if (!this.itemsEl) {
     return;
   }
 
-  this.firstPage = (_.itemsEl.children.length > 0) ? 1 : 0;
-  this.sortEl = el.querySelector('#sort_order');
+  this.url = this.itemsEl.dataset.endpoint;
 
-  if (this.sortEl !== null) {
-    this.sortEl.addEventListener('change', function (e) {
-      const value = e.target.options[e.target.selectedIndex].value;
-      _.fetchOptions["sort"] = value;
-      _.fetch(0);
-    });
+  if (typeof this.url === 'undefined') {
+    return;
   }
+
+  this.fetchOptions = {};
+  for (let d in this.itemsEl.dataset) {
+    if (!['endpoint', 'totalitems'].includes(d)) {
+      _.fetchOptions[d] = _.itemsEl.dataset[d];
+    }
+  }
+
+  this.currentPage = 0;
+  this.total = _.itemsEl.dataset.totalitems;
+  this.totalPages = Math.floor(this.total / _.itemsEl.dataset.perpage);
+  this.firstPage = (_.itemsEl.children.length > 0) ? 1 : 0;
 
   this.fetch = function (page) {
     _.currentPage = parseInt(page);
@@ -180,7 +176,8 @@ var Pager = function (el, opts) {
       }
     }
 
-    return _.url + "?" + str.substring(1);
+    const sep = (_.url.includes('?')) ? '&' : '?';
+    return _.url + sep + str.substring(1);
   }
 
   window.addEventListener('popstate', function(event) {
@@ -210,5 +207,5 @@ var Pager = function (el, opts) {
 
 };
 
-var pagers = document.querySelectorAll(".pager");
+var pagers = document.querySelectorAll(".ajax-paged");
 Array.prototype.forEach.call(pagers, function(el) { new Pager(el) });
