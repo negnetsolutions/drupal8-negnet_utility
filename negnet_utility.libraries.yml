@@ -35,7 +35,7 @@ pager:
     theme:
       css/pager.css: {}
   js:
-    js/pager/pager.js: {minified: false, attributes: { defer: true }}
+    js/pager/pager.min.js: {minified: true, attributes: { defer: true }}
   dependencies:
     - negnet_utility/createElementFromHTML
     - negnet_utility/closest
