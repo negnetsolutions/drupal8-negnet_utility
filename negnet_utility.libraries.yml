@@ -29,6 +29,11 @@ throttle:
 intersection-observer:
   js:
     js/intersection-observer.js: {minified: true}
+columns:
+  version: 0.03
+  css:
+    theme:
+      css/columns.css: {}
 pager:
   version: 0.03
   css:

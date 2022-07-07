@@ -1,0 +1,49 @@
+// Media Queries
+$mobile     : 580px;
+$tablet     : 799px;
+$desktop    : 924px;
+$huge       : 1022px;
+$giga       : 1445px;
+@mixin bp($point) {
+    @if $point == giga { @media (min-width: $giga) { @content; } }
+
+    @else if $point == huge { @media (max-width: $huge) { @content; } }
+    @else if $point == desktop { @media (max-width: $desktop) { @content; } }
+
+    @else if $point == tablet { @media (max-width: $tablet) { @content; } }
+
+    @else if $point == mobile { @media (max-width: $mobile) { @content; } }
+}
+@mixin bm($point) {
+    @if $point == giga { @media (min-width: $giga) { @content; } }
+    @else if $point == huge { @media (min-width: $huge) { @content; } }
+
+    @else if $point == desktop { @media (min-width: $desktop) { @content; } }
+
+    @else if $point == tablet { @media (min-width: $tablet) { @content; } }
+
+    @else if $point == mobile { @media (min-width: $mobile) { @content; } }
+}
+@mixin cols($count){
+  -webkit-column-count: $count;
+  -moz-column-count: $count;
+  column-count: $count;
+}
+.columns {
+  &.cols_2 {
+    @include cols(2);
+  }
+  &.cols_3 {
+    @include cols(3);
+    @include bp(tablet){
+      @include cols(2);
+    }
+  }
+  &.cols_4 {
+    @include cols(4);
+    @include bp(tablet){
+      @include cols(2);
+    }
+  }
+}
+
