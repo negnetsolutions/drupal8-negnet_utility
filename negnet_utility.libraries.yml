@@ -29,6 +29,16 @@ throttle:
 intersection-observer:
   js:
     js/intersection-observer.js: {minified: true}
+pager:
+  version: 0.03
+  css:
+    theme:
+      css/pager.css: {}
+  js:
+    js/pager/pager.js: {minified: false, attributes: { defer: true }}
+  dependencies:
+    - negnet_utility/createElementFromHTML
+    - negnet_utility/closest
 autopager:
   js:
     js/autopager/autopager.min.js: {minified: true}

@@ -226,6 +226,17 @@ function negnet_utility_preprocess_search_suggest(&$variables) {
  */
 function negnet_utility_theme($existing, $type, $theme, $path) {
   return [
+    'negnet_utility_pager' => [
+      'template' => 'pager',
+      'variables' => [
+        'endpoint' => NULL,
+        'page' => 0,
+        'perPage' => 20,
+        'pages' => [],
+        'prev' => NULL,
+        'next' => NULL,
+      ],
+    ],
     'search_suggest' => [
       'template' => 'suggest/suggest',
       'variables' => [
