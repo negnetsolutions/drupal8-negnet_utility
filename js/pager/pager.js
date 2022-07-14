@@ -18,6 +18,12 @@ var Pager = function (el, opts) {
     return;
   }
 
+  this.itemsContainer = this.itemsEl.querySelector('.items-container');
+
+  if (!this.itemsContainer) {
+    this.itemsContainer = this.itemsEl;
+  }
+
   this.url = this.itemsEl.dataset.endpoint;
 
   if (typeof this.url === 'undefined') {
@@ -34,7 +40,7 @@ var Pager = function (el, opts) {
   this.currentPage = 0;
   this.total = _.itemsEl.dataset.totalitems;
   this.totalPages = Math.floor(this.total / _.itemsEl.dataset.perpage);
-  this.firstPage = (_.itemsEl.children.length > 0) ? 1 : 0;
+  this.firstPage = (_.itemsContainer.children.length > 0) ? 1 : 0;
 
   this.fetch = function (page) {
     _.currentPage = parseInt(page);
@@ -44,7 +50,7 @@ var Pager = function (el, opts) {
 
     history.pushState(null, null, _.buildUrl(page));
 
-    _.itemsEl.classList.add("dim");
+    _.itemsContainer.classList.add("dim");
 
     _.xobj.open('GET', endpoint, true); // Replace 'my_data' with the path to your file
     _.xobj.onreadystatechange = function () {
@@ -73,9 +79,9 @@ var Pager = function (el, opts) {
         }
 
         window.requestAnimationFrame(function() {
-          _.itemsEl.innerHTML = '';
-          _.itemsEl.appendChild(fragment);
-          _.itemsEl.classList.remove("dim");
+          _.itemsContainer.innerHTML = '';
+          _.itemsContainer.appendChild(fragment);
+          _.itemsContainer.classList.remove("dim");
           _.el.scrollIntoView({ block: 'start',  behavior: 'smooth' });
         });
       }
