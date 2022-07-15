@@ -30,12 +30,17 @@ var Pager = function (el, opts) {
     return;
   }
 
-  this.fetchOptions = {};
-  for (let d in this.itemsEl.dataset) {
-    if (!['endpoint', 'totalitems'].includes(d)) {
-      _.fetchOptions[d] = _.itemsEl.dataset[d];
+  this.fetchOptions = function fetchOptions() {
+    const options = {};
+    for (let d in this.itemsEl.dataset) {
+      if (!['endpoint', 'totalitems'].includes(d)) {
+        options[d] = _.itemsEl.dataset[d];
+      }
     }
-  }
+
+    return options;
+
+  };
 
   this.currentPage = 0;
   this.total = _.itemsEl.dataset.totalitems;
@@ -169,9 +174,10 @@ var Pager = function (el, opts) {
   this.getUrl = function() {
 
     var str = "";
-    for (var key in _.fetchOptions) {
+    const options = _.fetchOptions();
+    for (var key in options) {
       str += "&";
-      str += key + "=" + encodeURIComponent(_.fetchOptions[key]);
+      str += key + "=" + encodeURIComponent(options[key]);
     }
 
     if (typeof(_.opts.fetchOptionsCallback) !== "undefined") {
