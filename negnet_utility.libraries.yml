@@ -39,8 +39,12 @@ pager:
   css:
     theme:
       css/pager.css: {}
+  dependencies:
+    - negnet_utility/pagerjs
+pagerjs:
+  version: 0.03
   js:
-    js/pager/pager.js: {minified: false, attributes: { defer: true }}
+    js/pager/pager.min.js: {minified: false, attributes: { defer: true }}
   dependencies:
     - negnet_utility/createElementFromHTML
     - negnet_utility/closest

@@ -213,5 +213,21 @@ var Pager = function (el, opts) {
 
 };
 
-var pagers = document.querySelectorAll(".ajax-paged");
-Array.prototype.forEach.call(pagers, function(el) { new Pager(el) });
+window.pagers = new function() {
+  const _ = this;
+  this.pagers = [];
+
+  Array.prototype.forEach.call(document.querySelectorAll(".ajax-paged"), function(el) { _.pagers.push(new Pager(el)) });
+
+  this.getPagerByEl = function getPagerByEl(el) {
+
+    for (let i = 0; i < _.pagers.length; i++) {
+      if (_.pagers[i].el === el) {
+        return _.pagers[i];
+      }
+    }
+
+    return null;
+  };
+
+}();
