@@ -62,6 +62,12 @@ var Pager = function (el, opts) {
       if (_.xobj.readyState == 4 && _.xobj.status == "200") {
         var data = JSON.parse(_.xobj.responseText);
 
+        if (parseInt(data.count) != parseInt(_.total)) {
+          _.total = data.count;
+          _.totalPages = Math.floor(_.total / _.itemsEl.dataset.perpage);
+          _.buildPager();
+        }
+
         var fragment = document.createDocumentFragment();
         for (var i = 0; i < data.items.length; i++) {
           var item = data.items[i];
