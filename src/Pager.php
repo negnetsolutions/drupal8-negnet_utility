@@ -109,7 +109,7 @@ class Pager {
     }
 
     if ($currentPage > 0) {
-      $pages[] = $this->getPageLink(0, '‹‹ First', [
+      $pages[] = $this->getPageLink(0, t('<< First'), [
         'pager__item',
         'pager__item--first',
       ]);
@@ -186,7 +186,7 @@ class Pager {
     }
 
     if ($currentPage != ($this->getPageCount())) {
-      $pages[] = $this->getPageLink($this->getPageCount(), 'Last ››', [
+      $pages[] = $this->getPageLink($this->getPageCount(), t('Last >>'), [
         'pager__item',
         'pager__item--last',
       ]);
