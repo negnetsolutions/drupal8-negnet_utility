@@ -7,8 +7,7 @@
     "negnet/tinyslide": "dev-master",
     "negnet/svg_image": "dev-master",
     "negnet/postage": "dev-master",
-    "google/apiclient": "^2.0",
-    "vimeo/vimeo-api": "dev-master"
+    "google/apiclient": "^2.0"
   },
   "require-dev": {
     "drupal/devel": "^4.0"
