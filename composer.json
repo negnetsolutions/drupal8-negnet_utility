@@ -8,7 +8,7 @@
     "negnet/svg_image": "dev-master",
     "negnet/postage": "dev-master",
     "google/apiclient": "^2.0",
-    "vimeo/vimeo-api": "dev-master"
+    "vimeo/vimeo-api": "*"
   },
   "require-dev": {
     "drupal/devel": "^4.0"
