@@ -2,9 +2,9 @@
 
 namespace Drupal\negnet_utility\Plugin\Filter;
 
+use Drupal\Core\Url;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
-use Drupal\Core\Url;
 
 /**
  * @file
@@ -54,30 +54,33 @@ class FilterNegnet extends FilterBase {
       }
     }
 
-    $dom = new \DOMDocument();
-    libxml_use_internal_errors(TRUE);
-    $dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
-    libxml_clear_errors();
-    $links = $dom->getElementsByTagName('a');
-    foreach ($links as $link) {
-      // Look for children images.
-      $images = $link->getElementsByTagName('img');
+    if (strlen($text) > 0) {
+      $dom = new \DOMDocument();
+      libxml_use_internal_errors(TRUE);
+      $dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
+      libxml_clear_errors();
+      $links = $dom->getElementsByTagName('a');
+      foreach ($links as $link) {
+        // Look for children images.
+        $images = $link->getElementsByTagName('img');
 
-      // Get classes.
-      $classes = explode(' ', $link->getAttribute('class'));
+        // Get classes.
+        $classes = explode(' ', $link->getAttribute('class'));
 
-      // text-only link.
-      if ($images->count() == 0) {
-        $classes[] = 'text-only';
+        // text-only link.
+        if ($images->count() == 0) {
+          $classes[] = 'text-only';
+        }
+        else {
+          $classes[] = 'img-link';
+        }
+
+        $link->setAttribute('class', trim(implode(' ', $classes)));
       }
-      else {
-        $classes[] = 'img-link';
-      }
 
-      $link->setAttribute('class', trim(implode(' ', $classes)));
+      $text = $dom->saveHTML();
+
     }
-
-    $text = $dom->saveHTML();
 
     $result = new FilterProcessResult($text);
 
