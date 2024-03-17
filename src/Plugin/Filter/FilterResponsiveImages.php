@@ -2,9 +2,9 @@
 
 namespace Drupal\negnet_utility\Plugin\Filter;
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
-use Drupal\Core\Form\FormStateInterface;
 
 /**
  * @file
@@ -28,80 +28,83 @@ class FilterResponsiveImages extends FilterBase {
    */
   public function process($text, $langcode) {
 
-    $dom = new \DOMDocument();
-    libxml_use_internal_errors(TRUE);
-    $dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
-    libxml_clear_errors();
-    $images = $dom->getElementsByTagName('img');
-    foreach ($images as $image) {
-      $classes = explode(' ', $image->getAttribute('class'));
-      if (!in_array('responsive-image', $classes)) {
-        // Need to process.
-        $src = $image->getAttribute('src');
-        $alt = $image->getAttribute('alt');
-        $title = $image->getAttribute('title');
+    if (strlen($text) > 0) {
 
-        if (substr($src, 0, 4) === 'http') {
-          // Check to see if the path is absolute to this site.
-          $host = \Drupal::request()->getSchemeAndHttpHost();
-          if (substr($src, 0, strlen($host)) === $host) {
-            // This is an absolute path to a local file.
-            $src = str_replace($host, '', $src);
+      $dom = new \DOMDocument();
+      libxml_use_internal_errors(TRUE);
+      $dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
+      libxml_clear_errors();
+      $images = $dom->getElementsByTagName('img');
+      foreach ($images as $image) {
+        $classes = explode(' ', $image->getAttribute('class'));
+        if (!in_array('responsive-image', $classes)) {
+          // Need to process.
+          $src = $image->getAttribute('src');
+          $alt = $image->getAttribute('alt');
+          $title = $image->getAttribute('title');
+
+          if (substr($src, 0, 4) === 'http') {
+            // Check to see if the path is absolute to this site.
+            $host = \Drupal::request()->getSchemeAndHttpHost();
+            if (substr($src, 0, strlen($host)) === $host) {
+              // This is an absolute path to a local file.
+              $src = str_replace($host, '', $src);
+            }
+            else {
+              continue;
+            }
           }
-          else {
+
+          $imgf = strstr($src, '?', TRUE);
+          if ($imgf !== FALSE) {
+            $src = $imgf;
+          }
+
+          // Make sure we are dealing with a managed image.
+          if (substr($src, 0, 20) !== '/sites/default/files') {
             continue;
           }
-        }
 
-        $imgf = strstr($src, '?', TRUE);
-        if ($imgf !== FALSE) {
-          $src = $imgf;
-        }
+          $src = str_replace('/sites/default/files', '', $src);
 
-        // Make sure we are dealing with a managed image.
-        if (substr($src, 0, 20) !== '/sites/default/files') {
-          continue;
-        }
+          $uri = "public:/" . urldecode($src);
 
-        $src = str_replace('/sites/default/files', '', $src);
+          $new_image = [
+            '#responsive_image_style_id' => $this->settings['responsive_image_style'] ?? NULL,
+            '#uri' => $uri,
+            '#theme' => 'responsive_image',
+            '#width' => NULL,
+            '#height' => NULL,
+            '#attributes' => [
+              'class' => $classes,
+            ],
+          ];
 
-        $uri = "public:/" . urldecode($src);
-
-        $new_image = [
-          '#responsive_image_style_id' => isset($this->settings['responsive_image_style']) ? $this->settings['responsive_image_style'] : NULL,
-          '#uri' => $uri,
-          '#theme' => 'responsive_image',
-          '#width' => NULL,
-          '#height' => NULL,
-          '#attributes' => [
-            'class' => $classes,
-          ],
-        ];
-
-        if (strlen($title) > 0) {
-          $new_image['#attributes']['title'] = $title;
-        }
-        if (strlen($alt) > 0) {
-          $new_image['#attributes']['alt'] = $alt;
-        }
-
-        try {
-          $i = \Drupal::service('image.factory')->get($uri);
-          if ($i->isValid()) {
-            $new_image['#height'] = $i->getHeight();
-            $new_image['#width'] = $i->getWidth();
+          if (strlen($title) > 0) {
+            $new_image['#attributes']['title'] = $title;
+          }
+          if (strlen($alt) > 0) {
+            $new_image['#attributes']['alt'] = $alt;
           }
 
-          $replacement = (string) \Drupal::service('renderer')->render($new_image);
-          $this->setInnerHtml($dom, $image, $replacement);
-        }
-        catch (\Exception $e) {
-          \Drupal::logger('neg_utilities')->error($e->getMessage());
+          try {
+            $i = \Drupal::service('image.factory')->get($uri);
+            if ($i->isValid()) {
+              $new_image['#height'] = $i->getHeight();
+              $new_image['#width'] = $i->getWidth();
+            }
+
+            $replacement = (string) \Drupal::service('renderer')->render($new_image);
+            $this->setInnerHtml($dom, $image, $replacement);
+          }
+          catch (\Exception $e) {
+            \Drupal::logger('neg_utilities')->error($e->getMessage());
+          }
         }
       }
-    }
 
-    $text = $dom->saveHTML();
+      $text = $dom->saveHTML();
+    }
 
     return new FilterProcessResult($text);
   }
@@ -136,7 +139,7 @@ class FilterResponsiveImages extends FilterBase {
       '#title' => $this->t('Responsive Image Style to Use'),
       '#options' => $responsive_image_styles,
       '#required' => TRUE,
-      '#default_value' => isset($this->settings['responsive_image_style']) ? $this->settings['responsive_image_style'] : '',
+      '#default_value' => $this->settings['responsive_image_style'] ?? '',
     ];
     return $form;
   }

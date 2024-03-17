@@ -27,24 +27,27 @@ class ButtonFilter extends FilterBase {
    */
   public function process($text, $langcode) {
 
-    $dom = new \DOMDocument();
-    libxml_use_internal_errors(TRUE);
-    $dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
-    libxml_clear_errors();
-    $links = $dom->getElementsByTagName('a');
-    foreach ($links as $link) {
+    if (strlen($text) > 0) {
 
-      // Get classes.
-      $classes = explode(' ', $link->getAttribute('class'));
-      if (in_array('btn', $classes)) {
-        $parentClasses = explode(' ', $link->parentNode->getAttribute('class'));
-        $parentClasses[] = 'button_container';
-        $parentClasses = array_unique($parentClasses);
-        $link->parentNode->setAttribute('class', trim(implode(' ', $parentClasses)));
+      $dom = new \DOMDocument();
+      libxml_use_internal_errors(TRUE);
+      $dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
+      libxml_clear_errors();
+      $links = $dom->getElementsByTagName('a');
+      foreach ($links as $link) {
+
+        // Get classes.
+        $classes = explode(' ', $link->getAttribute('class'));
+        if (in_array('btn', $classes)) {
+          $parentClasses = explode(' ', $link->parentNode->getAttribute('class'));
+          $parentClasses[] = 'button_container';
+          $parentClasses = array_unique($parentClasses);
+          $link->parentNode->setAttribute('class', trim(implode(' ', $parentClasses)));
+        }
       }
-    }
 
-    $text = $dom->saveHTML();
+      $text = $dom->saveHTML();
+    }
 
     return new FilterProcessResult($text);
   }
